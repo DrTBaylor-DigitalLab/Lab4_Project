@@ -1,0 +1,34 @@
+{
+  "tests": [
+    {
+      "name": "Half Adder",
+      "setup": "sudo apt-get update && sudo apt-get install -y iverilog",
+      "run": "iverilog -o sim.vvp rtl/halfadder.v tb/halfadder_tb.v && vvp sim.vvp | tee output.txt && grep -q 'TEST PASSED' output.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 2,
+      "points": 25
+    },
+    {
+      "name": "Full Adder",
+      "setup": "sudo apt-get update && sudo apt-get install -y iverilog",
+      "run": "iverilog -o sim.vvp rtl/halfadder.v rtl/fulladder.v tb/fulladder_tb.v && vvp sim.vvp | tee output.txt && grep -q 'TEST PASSED' output.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 2,
+      "points": 35
+    },
+    {
+      "name": "Adder/Subtractor",
+      "setup": "sudo apt-get update && sudo apt-get install -y iverilog",
+      "run": "iverilog -o sim.vvp rtl/halfadder.v rtl/fulladder.v rtl/rippleadder.v tb/rippleadder_tb.v && vvp sim.vvp | tee output.txt && grep -q 'TEST PASSED' output.txt",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 2,
+      "points": 40
+    }
+  ]
+}
