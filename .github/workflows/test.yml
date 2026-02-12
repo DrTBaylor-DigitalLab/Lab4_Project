@@ -1,0 +1,53 @@
+name: Verilog Testbench
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-halfadder:
+    name: Test halfadder
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+
+      - name: Test Half Adder
+        run: |
+          iverilog -o sim.vvp rtl/halfadder.v tb/halfadder_tb.v
+          vvp sim.vvp | tee output.txt
+          grep -q "TEST PASSED" output.txt
+
+  test-fulladder:
+    name: Test fulladder
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+
+      - name: Test Full Adder
+        run: |
+          iverilog -o sim.vvp rtl/halfadder.v rtl/fulladder.v tb/fulladder_tb.v
+          vvp sim.vvp | tee output.txt
+          grep -q "TEST PASSED" output.txt
+
+  test-rippleadder:
+    name: Test rippleadder
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+
+      - name: Test Ripple Adder
+        run: |
+          iverilog -o sim.vvp rtl/halfadder.v rtl/fulladder.v rtl/rippleadder.v tb/rippleadder_tb.v
+          vvp sim.vvp | tee output.txt
+          grep -q "TEST PASSED" output.txt
